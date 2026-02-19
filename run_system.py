@@ -36,6 +36,12 @@ import logging
 from dataclasses import dataclass
 import psutil
 
+# Prevent UnicodeEncodeError on Windows consoles that don't support emojis
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(errors="replace")
+
 @dataclass
 class ServiceConfig:
     name: str
@@ -79,8 +85,14 @@ class ColoredFormatter(logging.Formatter):
         # Create colored log line
         colored_service = f"{service_color}[{service_name.upper()}]{self.RESET}"
         colored_level = f"{self.COLORS.get(record.levelname, '')}{record.levelname}{self.RESET}"
-        
-        return f"{timestamp} {colored_service} {colored_level}: {record.getMessage()}"
+        message = f"{timestamp} {colored_service} {colored_level}: {record.getMessage()}"
+
+        # On Windows consoles with cp1252, replace unencodable characters (like emojis)
+        encoding = getattr(sys.stdout, "encoding", "utf-8") or "utf-8"
+        try:
+            return message.encode(encoding, errors="replace").decode(encoding, errors="replace")
+        except Exception:
+            return message
 
 class ServiceManager:
     """Manages multiple system services with logging and health monitoring."""
@@ -520,7 +532,7 @@ def main():
             return
         
         if args.logs_only:
-            # Logs only mode - just tail existing logs
+            # Logs only mode - just tail existing logsz
             manager.logger.info("📋 Showing aggregated logs... (Press Ctrl+C to stop)")
             manager.monitor()
             return

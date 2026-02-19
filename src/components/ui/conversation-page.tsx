@@ -20,12 +20,12 @@ interface ConversationPageProps {
 }
 
 const actionIcons = [
-  { icon: Copy, type: "Copy", action: "copy" },
-  { icon: ThumbsUp, type: "Like", action: "like" },
-  { icon: ThumbsDown, type: "Dislike", action: "dislike" },
-  { icon: Volume2, type: "Speak", action: "speak" },
-  { icon: RefreshCcw, type: "Regenerate", action: "regenerate" },
-  { icon: MoreHorizontal, type: "More", action: "more" },
+  { icon: Copy, type: "نسخ", action: "copy" },
+  { icon: ThumbsUp, type: "إعجاب", action: "like" },
+  { icon: ThumbsDown, type: "عدم إعجاب", action: "dislike" },
+  { icon: Volume2, type: "قراءة", action: "speak" },
+  { icon: RefreshCcw, type: "إعادة التوليد", action: "regenerate" },
+  { icon: MoreHorizontal, type: "المزيد", action: "more" },
 ]
 
 // Citation block toggle component
@@ -33,7 +33,7 @@ function Citation({doc, idx}: {doc:any, idx:number}){
   const [open,setOpen]=React.useState(false);
   const preview = (doc.text||'').replace(/\s+/g,' ').trim().slice(0,160) + ((doc.text||'').length>160?'…':'');
   return (
-    <div onClick={()=>setOpen(!open)} className="text-xs text-gray-300 bg-gray-900/60 rounded p-2 cursor-pointer hover:bg-gray-800 transition">
+    <div onClick={()=>setOpen(!open)} className="text-xs text-emerald-100 bg-emerald-950/65 rounded p-2 cursor-pointer hover:bg-emerald-900 transition">
       <span className="font-semibold mr-1">[{idx+1}]</span>{open?doc.text:preview}
     </div>
   );
@@ -50,8 +50,8 @@ function CitationsBlock({docs}:{docs:any[]}){
   const visibleDocs = expanded ? scored : scored.slice(0, 5);
 
   return (
-    <div className="mt-2 text-xs text-gray-400">
-      <p className="font-semibold mb-1">Sources:</p>
+    <div className="mt-2 text-xs text-emerald-100/80">
+      <p className="font-semibold mb-1">المصادر:</p>
       <div className="grid grid-cols-1 gap-2">
         {visibleDocs.map((doc, i) => <Citation key={doc.chunk_id || i} doc={doc} idx={i} />)}
       </div>
@@ -60,7 +60,7 @@ function CitationsBlock({docs}:{docs:any[]}){
           onClick={() => setExpanded(!expanded)} 
           className="text-blue-400 hover:text-blue-300 mt-2 text-xs"
         >
-          {expanded ? 'Show less' : `Show ${scored.length-5} more`}
+          {expanded ? "إظهار أقل" : `إظهار ${scored.length-5} إضافي`}
         </button>
       )}
     </div>
@@ -102,8 +102,8 @@ function ThinkingText({ text }: { text: string }) {
     <>
       {thinkSegments.length > 0 && (
         <details className="thinking-block inline-block align-baseline mr-2" open={false}>
-          <summary className="cursor-pointer text-xs text-gray-400 uppercase select-none">Thinking</summary>
-          <div className="mt-1 space-y-1 text-xs text-gray-400 italic">
+          <summary className="cursor-pointer text-xs text-emerald-100/80 uppercase select-none">تفكير</summary>
+          <div className="mt-1 space-y-1 text-xs text-emerald-100/80 italic">
             {thinkSegments.map((seg, idx) => (
               <div key={idx}>{seg}</div>
             ))}
@@ -293,7 +293,7 @@ export function ConversationPage({
   }
 
   return (
-    <div className={`flex flex-col h-full bg-black relative overflow-hidden ${className}`}>
+    <div dir="rtl" className={`flex flex-col h-full bg-transparent relative overflow-hidden ${className}`}>
       <ScrollArea ref={scrollAreaRef} className="flex-1 h-full px-4 pt-4 pb-6 min-h-0">
         <div className="max-w-4xl mx-auto space-y-6">
           {messages.map((message) => {
@@ -301,7 +301,7 @@ export function ConversationPage({
             
             return (
               <div key={message.id} className="w-full group">
-                <div className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
+                <div className={`flex gap-3 ${isUser ? 'justify-start' : 'justify-end'}`}>
                   {!isUser && (
                     <ChatBubbleAvatar 
                       fallback="AI" 
@@ -309,7 +309,7 @@ export function ConversationPage({
                     />
                   )}
                   
-                  <div className={`flex flex-col space-y-2 ${isUser ? 'items-end' : 'items-start'} max-w-full md:max-w-3xl`}>
+                  <div className={`flex flex-col space-y-2 ${isUser ? 'items-start' : 'items-end'} max-w-full md:max-w-3xl`}>
                     <div
                       className={`rounded-2xl px-5 py-4 ${
                         isUser 

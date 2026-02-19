@@ -19,7 +19,7 @@ interface ChatInputProps {
 export function ChatInput({ 
   onSendMessage, 
   disabled = false,
-  placeholder = "Message localGPT...",
+  placeholder = "اكتب رسالتك...",
   className = "",
   onOpenSettings,
   onAddIndex,
@@ -135,26 +135,26 @@ export function ChatInput({
   }
 
   return (
-    <div className={`border-t border-white/10 bg-black/60 backdrop-blur-sm p-4 ${className}`}>
-      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
+    <div className={`border-t border-emerald-300/35 bg-emerald-900/65 backdrop-blur-sm p-4 ${className}`}>
+      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto" dir="rtl">
         {/* Attached Files Display */}
         {attachedFiles.length > 0 && (
           <div className="mb-3 space-y-2">
-            <div className="text-sm text-gray-400 font-medium">Attached Files:</div>
+            <div className="text-sm text-emerald-100/90 font-medium">الملفات المرفقة:</div>
             <div className="space-y-2">
               {attachedFiles.map((file) => (
-                <div key={file.id} className="flex items-center gap-3 bg-gray-800 rounded-lg p-3">
+                <div key={file.id} className="flex items-center gap-3 bg-emerald-950/60 rounded-lg p-3">
                   <FileText className="w-5 h-5 text-red-400" />
                   <div className="flex-1 min-w-0">
                     <div className="text-sm text-white truncate">{file.name}</div>
-                    <div className="text-xs text-gray-400">{formatFileSize(file.size)}</div>
+                    <div className="text-xs text-emerald-200/80">{formatFileSize(file.size)}</div>
                   </div>
                   <button
                     type="button"
                     onClick={() => removeFile(file.id)}
-                    className="p-1 hover:bg-gray-700 rounded transition-colors"
+                    className="p-1 hover:bg-emerald-800 rounded transition-colors"
                   >
-                    <X className="w-4 h-4 text-gray-400 hover:text-white" />
+                    <X className="w-4 h-4 text-emerald-100/80 hover:text-white" />
                   </button>
                 </div>
               ))}
@@ -162,7 +162,7 @@ export function ChatInput({
           </div>
         )}
 
-        <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl px-5 pt-4 pb-3 space-y-2">
+        <div className="bg-emerald-950/55 backdrop-blur border border-emerald-300/35 rounded-2xl px-5 pt-4 pb-3 space-y-2">
           {/* Hidden file input (kept for future use) */}
           <input ref={fileInputRef} type="file" accept=".pdf,.docx,.doc,.html,.htm,.md,.txt" multiple onChange={handleFileChange} className="hidden" />
 
@@ -172,10 +172,10 @@ export function ChatInput({
             value={message}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
-            placeholder={attachedFiles.length > 0 ? "Ask questions about your attached files..." : placeholder}
+            placeholder={attachedFiles.length > 0 ? "اطرح أسئلة حول ملفاتك المرفقة..." : placeholder}
             disabled={disabled || isLoading}
             rows={1}
-            className="w-full bg-transparent border-none text-white placeholder-gray-400 resize-none overflow-y-hidden focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed text-base"
+            className="w-full bg-transparent border-none text-white placeholder-emerald-200/70 resize-none overflow-y-hidden focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed text-base text-right"
             style={{ maxHeight: '120px', minHeight: '44px' }}
           />
 
@@ -186,11 +186,11 @@ export function ChatInput({
                 type="button"
                 onClick={()=>onOpenSettings && onOpenSettings()}
                 disabled={disabled || isLoading}
-                className="flex items-center gap-1 p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Chat settings"
+                className="flex items-center gap-1 p-2 text-emerald-100/85 hover:text-white hover:bg-emerald-800 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                title="إعدادات المحادثة"
               >
                 <SettingsIcon className="w-5 h-5" />
-                <span className="text-xs hidden sm:inline">Settings</span>
+                <span className="text-xs hidden sm:inline">الإعدادات</span>
               </button>
               {leftExtras}
             </div>
@@ -198,10 +198,10 @@ export function ChatInput({
               type="submit"
               size="sm"
               disabled={(!message.trim() && attachedFiles.length === 0) || disabled || isLoading}
-              className="w-8 h-8 p-0 rounded-full bg-white hover:bg-gray-100 text-black disabled:bg-gray-600 disabled:text-gray-400"
+              className="w-8 h-8 p-0 rounded-full bg-emerald-300 hover:bg-emerald-200 text-emerald-950 disabled:bg-emerald-800 disabled:text-emerald-300"
             >
               {isLoading ? (
-                <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin" />
               ) : (
                 <ArrowUp className="w-4 h-4" />
               )}

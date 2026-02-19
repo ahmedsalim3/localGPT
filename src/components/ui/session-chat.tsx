@@ -569,20 +569,20 @@ export const SessionChat = forwardRef<SessionChatRef, SessionChatProps>(({
       
       {showEmptyState ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-6 min-h-0">
-          <div className="text-center text-2xl font-semibold text-gray-300 select-none">What can I help you find today?</div>
+          <div className="text-center text-2xl font-semibold text-emerald-100 select-none">كيف يمكنني مساعدتك اليوم؟</div>
           <div className="w-full max-w-2xl px-4">
             <ChatInput
               onSendMessage={sendMessage}
               disabled={isLoading}
-              placeholder="Ask anything"
+              placeholder="اسأل أي شيء"
               onOpenSettings={()=>setShowSettings(true)}
               onAddIndex={()=>setShowIndexForm(true)}
               leftExtras={currentIndexId && currentIndexName ? (
                 <button
                   type="button"
                   onClick={()=>setShowIndexInfo(true)}
-                  title="View index info"
-                  className="flex items-center gap-1 p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-full transition-colors"
+                  title="عرض معلومات الفهرس"
+                  className="flex items-center gap-1 p-2 text-emerald-100/80 hover:text-white hover:bg-emerald-800 rounded-full transition-colors"
                 >
                   <Database className="w-5 h-5" />
                   <span className="text-xs hidden sm:inline">{truncate(currentIndexName,12)}</span>
@@ -605,22 +605,22 @@ export const SessionChat = forwardRef<SessionChatRef, SessionChatProps>(({
             {uploadedFiles.length > 0 && !isIndexed && (
               <div className="p-2 text-center bg-yellow-100 dark:bg-yellow-900 border-t border-b border-gray-200 dark:border-gray-700">
                 <Button onClick={handleIndexDocuments} disabled={isLoading}>
-                  {isLoading ? 'Indexing...' : 'Index Documents to Enable Chat'}
+                  {isLoading ? 'جارٍ الفهرسة...' : 'فهرس المستندات لتفعيل المحادثة'}
                 </Button>
               </div>
             )}
             <ChatInput
               onSendMessage={sendMessage}
               disabled={isLoading || (uploadedFiles.length > 0 && !isIndexed)}
-              placeholder="Message localGPT..."
+              placeholder="اكتب رسالتك..."
               onOpenSettings={()=>setShowSettings(true)}
               onAddIndex={()=>setShowIndexForm(true)}
               leftExtras={currentIndexId && currentIndexName ? (
                 <button
                   type="button"
                   onClick={()=>setShowIndexInfo(true)}
-                  title="View index info"
-                  className="flex items-center gap-1 p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-full transition-colors"
+                  title="عرض معلومات الفهرس"
+                  className="flex items-center gap-1 p-2 text-emerald-100/80 hover:text-white hover:bg-emerald-800 rounded-full transition-colors"
                 >
                   <Database className="w-5 h-5" />
                   <span className="text-xs hidden sm:inline">{truncate(currentIndexName,12)}</span>

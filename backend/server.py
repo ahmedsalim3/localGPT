@@ -7,7 +7,27 @@ import uuid
 from urllib.parse import urlparse, parse_qs
 import requests  # 🆕 Import requests for making HTTP calls
 import sys
+import builtins
 from datetime import datetime
+
+# Make all prints safe for Windows consoles that can't encode emojis
+def _safe_print(*args, **kwargs):
+    enc = getattr(sys.stdout, "encoding", "utf-8") or "utf-8"
+    sep = kwargs.get("sep", " ")
+    end = kwargs.get("end", "\n")
+    text = sep.join(str(a) for a in args)
+    try:
+        text = text.encode(enc, errors="replace").decode(enc, errors="replace")
+    except Exception:
+        pass
+    sys.stdout.write(text + end)
+    if kwargs.get("flush", False):
+        try:
+            sys.stdout.flush()
+        except Exception:
+            pass
+
+builtins.print = _safe_print
 
 # Add parent directory to path so we can import rag_system modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

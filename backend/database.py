@@ -3,6 +3,13 @@ import uuid
 import json
 from datetime import datetime
 from typing import List, Dict, Optional, Tuple
+import sys
+
+# Prevent UnicodeEncodeError on Windows consoles that don't support emojis
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(errors="replace")
 
 class ChatDatabase:
     def __init__(self, db_path: str = None):

@@ -76,3 +76,4 @@ rag_system/documents/
 !docker.env
 !backend/chat_data.db
 
+.venv/
